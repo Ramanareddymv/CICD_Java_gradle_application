@@ -5,7 +5,7 @@ pipeline{
             steps{
                withSonarQubeEnv(installationName: 'sonar', credentialsId: 'sonar-tocken') {
                      sh 'chmod +x gradlew'
-                     sh './gradlew sonarqube --warning-mode all'
+                     sh './gradlew sonarqube'
                 }
             }
             }
