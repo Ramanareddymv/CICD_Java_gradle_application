@@ -7,18 +7,13 @@ pipeline{
                      sh 'chmod +x gradlew'
                      sh './gradlew sonarqube'
                 }
-            }
-        }
-        stage("if condtion"){
-            if(env.BRANCH_NAME=='main'){
-                echo "Hello main branch"
-            }
-            else{
-                echo "Hello from ${env.BRANCH_NAME}"
-            }
-        }
-            
-            
-        }
+                timeout(time: 1, unit: 'HOURS') {
+                      def qg = waitForQualityGate()
+                      if (qg.status != 'OK') {
+                           error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
+                    }
     }
-   
+}
+}
+}
