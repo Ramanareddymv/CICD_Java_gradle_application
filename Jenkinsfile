@@ -8,7 +8,16 @@ pipeline{
                      sh './gradlew sonarqube'
                 }
             }
+        }
+        stage("if condtion"){
+            if(env.BRANCH_NAME=='main'){
+                echo "Hello main branch"
             }
+            else{
+                echo "Hello from ${env.BRANCH_NAME}"
+            }
+        }
+            
             
         }
     }
